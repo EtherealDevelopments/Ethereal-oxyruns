@@ -2,7 +2,7 @@ local QBCore = exports['qb-core']:GetCoreObject()
 
 local CoolDown = false
 
-RegisterServerEvent('zerx-oxyruns:coolout', function()
+RegisterServerEvent('Ethereal-oxyruns:coolout', function()
     CoolDown = true
     local timer = Config.CoolDown
     while timer > 0 do
@@ -14,7 +14,7 @@ RegisterServerEvent('zerx-oxyruns:coolout', function()
     end
 end)
 
-QBCore.Functions.CreateCallback("zerx-oxyruns:coolc", function(source, cb)
+QBCore.Functions.CreateCallback("Ethereal-oxyruns:coolc", function(source, cb)
     if CoolDown then
         cb(true)
     else
@@ -23,7 +23,7 @@ QBCore.Functions.CreateCallback("zerx-oxyruns:coolc", function(source, cb)
 end)
 
 
-QBCore.Functions.CreateCallback('zerx-oxyruns:Haspayment',function(source, cb)
+QBCore.Functions.CreateCallback('Ethereal-oxyruns:Haspayment',function(source, cb)
 	local src = source
     local Player = QBCore.Functions.GetPlayer(source)
     
@@ -37,7 +37,7 @@ QBCore.Functions.CreateCallback('zerx-oxyruns:Haspayment',function(source, cb)
     end
 end)
 
-RegisterNetEvent('zerx-oxyruns:giveoxypackages', function ()
+RegisterNetEvent('Ethereal-oxyruns:giveoxypackages', function ()
     local src = source
 	local Player = QBCore.Functions.GetPlayer(src)
 	Player.Functions.AddItem(Config.OxyPackageName, 1, false)
@@ -45,7 +45,7 @@ RegisterNetEvent('zerx-oxyruns:giveoxypackages', function ()
 	Wait(2500)
 end)
 
-QBCore.Functions.CreateCallback('zerx-oxyruns:hasPackage', function(source, cb)
+QBCore.Functions.CreateCallback('Ethereal-oxyruns:hasPackage', function(source, cb)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 	local hasPackage = Player.Functions.GetItemByName(Config.OxyPackageName)
@@ -56,7 +56,7 @@ QBCore.Functions.CreateCallback('zerx-oxyruns:hasPackage', function(source, cb)
     end
 end)
 
-RegisterNetEvent('zerx-oxyruns:removeoxypackages', function ()
+RegisterNetEvent('Ethereal-oxyruns:removeoxypackages', function ()
     local src = source
 	local Player = QBCore.Functions.GetPlayer(src)
     local OxyPackage = Player.Functions.GetItemByName(Config.OxyPackageName)
