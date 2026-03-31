@@ -39,14 +39,14 @@ CreateThread(function()
                     return false
                 end,
                 action = function()
-                    TriggerEvent('zerx-oxyruns:initiate')
+                    TriggerEvent('Ethereal-oxyruns:initiate')
                 end,
             }
         }
     })
 end)
 
-RegisterNetEvent('zerx-oxyruns:initiate', function ()
+RegisterNetEvent('Ethereal-oxyruns:initiate', function ()
     if CurrentCops >= Config.CopsNeeded then
         TriggerEvent('animations:client:EmoteCommandStart', {"clipboard"})
         QBCore.Functions.Progressbar("start_delivery", 'Getting Information', 10000, false, true, {
@@ -58,13 +58,13 @@ RegisterNetEvent('zerx-oxyruns:initiate', function ()
         }, {}, function() -- Done
             TriggerEvent('animations:client:EmoteCommandStart', {"c"})
             if Config.UseStartPayment == 'true' then
-                QBCore.Functions.TriggerCallback("zerx-oxyruns:Haspayment",function(money)
+                QBCore.Functions.TriggerCallback("Ethereal-oxyruns:Haspayment",function(money)
                     if money then
-                        TriggerEvent('zerx-oxyruns:OxyStart')
+                        TriggerEvent('Ethereal-oxyruns:OxyStart')
                     end
                 end)
             elseif Config.UseStartPayment == 'false' then
-                TriggerEvent('zerx-oxyruns:OxyStart')
+                TriggerEvent('Ethereal-oxyruns:OxyStart')
             end
         end, function() -- Cancel
             TriggerEvent('animations:client:EmoteCommandStart', {"c"})
@@ -80,7 +80,7 @@ RegisterNetEvent('zerx-oxyruns:initiate', function ()
     end
 end)
 
-RegisterNetEvent('zerx-oxyruns:OxyStart', function ()
+RegisterNetEvent('Ethereal-oxyruns:OxyStart', function ()
     if Config.Notifications == 'phone' then
         TriggerEvent('qb-phone:client:CustomNotification', 'NOTIFICATION', 'Meet With supplier and collect packages', 'fas fa-bars', '#86F9A1', 4000)
     elseif Config.Notifications == 'qbcore' then
@@ -127,13 +127,13 @@ function SpawnSupplier()
 
     exports.interact:AddInteraction({
         coords = vector3(loc.x, loc.y, loc.z - 0.2),
-        name = "zerx-takeoxypackages",
+        name = "Ethereal-takeoxypackages",
         distance = 2.0,
         interactDst = 2.0,
         options = {
             {
                 label = "Take Packages",
-                event = "zerx-oxyruns:collect"
+                event = "Ethereal-oxyruns:collect"
             }
         }
     })
@@ -149,7 +149,7 @@ function Collect()
         QBCore.Functions.Notify(PackagesCollected..' / '..RecievedPackages..' Collected Packages.', 'primary')
     end
 
-    TriggerServerEvent('zerx-oxyruns:giveoxypackages')
+    TriggerServerEvent('Ethereal-oxyruns:giveoxypackages')
     if PackagesCollected == RecievedPackages then
         StartZone:destroy()
         RemoveBlip(SupBlip)
@@ -228,8 +228,8 @@ function SpawnBuyers()
 
     exports.interact:AddEntityInteraction({
         netId = netId,
-        name = 'zerx:GiveOxyPackage',
-        id = 'zerx_give_oxy_package', -- unique id to manage interaction lifecycle
+        name = 'Ethereal:GiveOxyPackage',
+        id = 'Ethereal_give_oxy_package', -- unique id to manage interaction lifecycle
         distance = 8.0,
         interactDst = 2.0,
         ignoreLos = false,
@@ -252,7 +252,7 @@ end
 
 
 function GivePackage()
-    TriggerServerEvent('zerx-oxyruns:removeoxypackages')
+    TriggerServerEvent('Ethereal-oxyruns:removeoxypackages')
     DeleteEntity(Buyer)
     DeleteEntity(BuyerVehicle)
     DeliveredPackages = DeliveredPackages +1
@@ -275,13 +275,13 @@ function GivePackage()
         elseif Config.Notifications == 'qbcore' then
             QBCore.Functions.Notify('All packages sold.', 'primary')
         end
-        TriggerEvent('zerx-oxyruns:clean')
+        TriggerEvent('Ethereal-oxyruns:clean')
     end
 
     BuyerSpawned = false
 end
 
-RegisterNetEvent('zerx-oxyruns:clean', function ()
+RegisterNetEvent('Ethereal-oxyruns:clean', function ()
     SupplierSpawned = false
     OnDelivery = false
     GotPackages = false
@@ -294,7 +294,7 @@ end)
 CreateThread(function()
     while true do
         if OnDelivery then
-            QBCore.Functions.TriggerCallback('zerx-oxyruns:hasPackage', function(Package)
+            QBCore.Functions.TriggerCallback('Ethereal-oxyruns:hasPackage', function(Package)
                 local ped = PlayerPedId()
                 if Package then
                     if prop == nil then
@@ -349,7 +349,7 @@ function LoadAnim(dict)
 end
 
 
-RegisterNetEvent('zerx-oxyruns:collect', function()
+RegisterNetEvent('Ethereal-oxyruns:collect', function()
     Collect()
 end)
 
